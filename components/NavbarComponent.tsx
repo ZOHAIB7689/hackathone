@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { FaShoppingCart, FaBars } from "react-icons/fa";
 import { IoIosHelpCircleOutline } from "react-icons/io";
+import Link from 'next/link';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,10 +15,10 @@ function Navbar() {
         <div className="text-sm">✔ Free Shipping On All Orders Over $50</div>
         <div className="flex items-center space-x-6 text-sm">
           <div>Eng</div>
-          <a href="/faqs" className="hover:text-teal-600">FAQs</a>
+          <Link href="/faqs" className="hover:text-teal-600">FAQs</Link>
           <div className="flex items-center space-x-1">
             <IoIosHelpCircleOutline size={16} />
-            <a href="/contact" className="hover:text-teal-600">Need Help</a>
+            <Link href="/contact" className="hover:text-teal-600">Need Help</Link>
           </div>
         </div>
       </div>
@@ -32,10 +33,12 @@ function Navbar() {
           </div>
           {/* Cart */}
           <div className="relative hidden md:flex items-center">
-            <a href="/cart">
-              <FaShoppingCart size={30} className="text-gray-700" />
-              <span className="absolute top-0 right-0 bg-teal-600 text-white text-xs rounded-full px-1">4</span>
-            </a>
+            <Link href="/cart">
+             
+                <FaShoppingCart size={30} className="text-gray-700" />
+                <span className="absolute top-0 right-0 bg-teal-600 text-white text-xs rounded-full px-1">4</span>
+             
+            </Link>
           </div>
 
           {/* Mobile Menu Icon */}
@@ -50,11 +53,11 @@ function Navbar() {
         <div className="container mx-auto flex justify-between items-center">
           {/* Links */}
           <div className="flex space-x-6 font-thin text-gray-700">
-            <a href="/" className="hover:text-teal-600">Home</a>
-            <a href="/products" className="hover:text-teal-600">Shop</a>
-            <a href="/singleproduct" className="hover:text-teal-600">Product</a>
-            <a href="#" className="hover:text-teal-600">Pages</a>
-            <a href="/about" className="hover:text-teal-600">About</a>
+            <Link href="/" className="hover:text-teal-600">Home</Link>
+            <Link href="/products" className="hover:text-teal-600">Shop</Link>
+            <Link href="/singleproduct" className="hover:text-teal-600">Product</Link>
+            <Link href="#" className="hover:text-teal-600">Pages</Link>
+            <Link href="/about" className="hover:text-teal-600">About</Link>
           </div>
 
           {/* Contact */}
@@ -65,11 +68,11 @@ function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden flex flex-col items-center bg-white py-3 space-y-2 text-gray-700">
-          <a href="#" className="hover:text-teal-600">Home</a>
-          <a href="#" className="hover:text-teal-600">Shop</a>
-          <a href="#" className="hover:text-teal-600">Product</a>
-          <a href="#" className="hover:text-teal-600">Pages</a>
-          <a href="#" className="hover:text-teal-600">About</a>
+          <Link href="/" className="hover:text-teal-600">Home</Link>
+          <Link href="/products" className="hover:text-teal-600">Shop</Link>
+          <Link href="/singleproduct" className="hover:text-teal-600">Product</Link>
+          <Link href="#" className="hover:text-teal-600">Pages</Link>
+          <Link href="/about" className="hover:text-teal-600">About</Link>
         </div>
       )}
     </div>

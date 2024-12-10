@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card,  CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { ShoppingCart } from 'lucide-react';
 
 export default function FeaturedProductComponent() {
@@ -13,11 +13,11 @@ export default function FeaturedProductComponent() {
   return (
     <div className='mt-8'>
       
-      <div className='flex mt-5'>
+      <div className='flex flex-wrap mt-5'>
         {products.map((product, index) => (
-          <Card key={index} className='border-none shadow-none'>
+          <Card key={index} className='border-none shadow-none m-2 flex-1 min-w-[200px] max-w-[300px]'>
             <CardContent>
-              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={product.name} className="w-full" />
             </CardContent>
             <CardFooter>
               <div className="flex flex-col items-start">

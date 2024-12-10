@@ -8,7 +8,7 @@ import React from 'react'
 
 export default function Home() {
   return (
-    <div className='px-4 md:pl-56 md:pr-36 flex-col flex '>
+    <div className='px-4 md:pl-56 md:pr-36 flex-col flex  overflow-x-hidden'>
       <FurnitureCollection />
       <Logos/>
       <div>

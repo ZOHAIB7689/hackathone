@@ -31,7 +31,7 @@ export default function Home() {
             tincidunt erat enim. Lorem ipsum dolor sit amet, consectetur
             adipiscing.
           </p>
-          <button className="flex items-center gap-2 bg-[#007BFF] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#0056b3] transition inline-block">
+          <button className="flex items-center gap-2 bg-[#007BFF] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#0056b3] transition ">
             <FaShoppingCart size={18} />
             Add To Cart
           </button>
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
 
         {/* Featured Products Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-6">
           {demoImages.map((image, index) => (
             <div
               key={index}
@@ -61,7 +61,7 @@ export default function Home() {
               <img
                 src={image}
                 alt={`Demo Image ${index + 1}`}
-                className="rounded-lg w-full h-36 object-cover mb-4"
+                className="rounded-lg w-full h-48 object-cover mb-4" // Adjusted image size
               />
               <h3 className="text-[#343A40] font-semibold text-sm mb-2">
                 Demo Product {index + 1}

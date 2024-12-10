@@ -2,30 +2,23 @@ import { FaTwitter, FaInstagram, FaPinterest, FaYoutube, FaFacebook } from "reac
 
 export default function Footer() {
   return (
-    <footer className="bg-white mt-12 px-56 py-8 border-t  ">
+    <footer className="bg-white mt-12 px-4 py-8 border-t">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-between ">
+        <div className="flex flex-wrap justify-between">
           {/* Logo and Description */}
-          <div className="w-full md:w-1/4 mb-6 md:mb-0  ">
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
             <div className="flex items-center space-x-2">
-              {/* <div className="text-2xl font-bold text-blue-600">🪑</div> */}
-              <div className="flex items-center space-x-2 ">
-              <img src="/logo.png" alt="logo" /> </div>
+              <img src="/logo.png" alt="logo" />
               <h2 className="text-xl font-semibold text-gray-700">Comforty</h2>
             </div>
             <p className="text-gray-500 mt-2">
               Vivamus tristique odio sit amet velit semper, eu posuere turpis interdum. Cras egestas purus.
             </p>
             {/* Social Icons */}
-
-            
             <div className="flex space-x-4 mt-8">
-
-            
-            <a href="#" className="text-gray-500 hover:text-blue-600">
+              <a href="#" className="text-gray-500 hover:text-blue-600">
                 <FaFacebook size={20} />
               </a>
-
               <a href="#" className="text-gray-500 hover:text-blue-600">
                 <FaTwitter size={20} />
               </a>
@@ -42,7 +35,7 @@ export default function Footer() {
           </div>
 
           {/* Categories */}
-          <div className="w-full md:w-1/4 mb-6 md:mb-0 ">
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
             <h3 className="text-gray-700 font-semibold mb-4">Category</h3>
             <ul className="space-y-2 text-gray-500">
               <li>Sofa</li>

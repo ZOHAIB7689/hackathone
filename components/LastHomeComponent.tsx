@@ -18,11 +18,11 @@ export default function LastHome() {
   return (
     <div className='mt-8'>
       
-      <div className='flex mt-5'>
+      <div className='flex flex-wrap mt-5'>
         {products.map((product, index) => (
-          <Card key={index} className='border-none shadow-none'>
+          <Card key={index} className='border-none shadow-none m-2 flex-1 min-w-[200px] max-w-[300px]'>
             <CardContent>
-              <img src={product.image} alt={product.name} />
+              <img src={product.image} alt={product.name} className="w-full" />
             </CardContent>
             <CardFooter>
               <div className="flex flex-col items-start">
@@ -38,11 +38,11 @@ export default function LastHome() {
           </Card>
         ))}
       </div>
-           <div className='flex'>
+           <div className='flex flex-wrap'>
         {otherProducts.map((otherProduct, index) => (
-          <Card key={index} className='border-none shadow-none'>
+          <Card key={index} className='border-none shadow-none m-2 flex-1 min-w-[200px] max-w-[300px]'>
             <CardContent>
-              <img src={otherProduct.image} alt={otherProduct.name} />
+              <img src={otherProduct.image} alt={otherProduct.name} className="w-full" />
             </CardContent>
             <CardFooter>
               <div className="flex flex-col items-start">
