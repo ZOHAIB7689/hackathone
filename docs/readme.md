@@ -132,7 +132,7 @@ Comforty aims to deliver a user-friendly, visually appealing, and scalable shopp
 ---
 
 ## API Endpoints
-![api endpoints](./images/)
+![api endpoints](./images/GetPost.png)
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/api/create-order` | POST | Creates a new order when a customer places an order. |
