@@ -8,7 +8,7 @@
 5. [CMS Integration](#cms-integration)
 
 ## Project Overview
-[Overview image](/docs/images/preview.png)
+![Overview image](/docs/images/preview.png)
 Comforty is a sleek, modern e-commerce platform specializing in high-quality, ergonomic chairs. Designed to provide a premium shopping experience, Comforty leverages the latest technologies to create a seamless and efficient marketplace. 
 
 The platform focuses on dynamic infrastructure, ensuring robust management of products, customers, orders, shipments, and payments. By utilizing **Sanity CMS** for content management, **Next.js** for frontend development, and **Redux Toolkit** for state management, Comforty ensures smooth interaction between users and the system. 
@@ -20,7 +20,7 @@ Comforty aims to deliver a user-friendly, visually appealing, and scalable shopp
 ## System Architecture
 
 ### Pages
-[Pages](/docs/images/pages.png)
+![Pages](/docs/images/pages.png)
 1. **Home Page**: A visually stunning landing page showcasing featured chairs and categories.
 2. **Shop Page**: A product exploration section with advanced filtering and search options.
 3. **Product Detail Page**: Detailed product descriptions, reviews, and customizable options.
@@ -52,7 +52,7 @@ Comforty aims to deliver a user-friendly, visually appealing, and scalable shopp
 ---
 
 ## Schemas
-[chair](./images/Schemas%20.png)
+![chair](./images/Schemas%20.png)
 ### **Chair**
 | Field             | Type           | Description                                    |
 |-------------------|----------------|------------------------------------------------|
@@ -132,7 +132,7 @@ Comforty aims to deliver a user-friendly, visually appealing, and scalable shopp
 ---
 
 ## API Endpoints
-[api endpoints](./images/)
+![api endpoints](./images/)
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/api/create-order` | POST | Creates a new order when a customer places an order. |
