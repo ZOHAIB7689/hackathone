@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from './ui/card'
 import { ShoppingCart } from 'lucide-react';
 
 export default function FeaturedProductComponent() {

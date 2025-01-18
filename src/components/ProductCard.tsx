@@ -53,8 +53,8 @@ const ProductCard: FC<{ Item: Products }> = ({ Item }) => {
           <button
             className="mr-2 p-2 rounded-lg duration-200 hover:bg-[#029FAE] font-bold"
             onClick={(e) => {
-              e.stopPropagation(); // Prevent navigation when clicking the button
-              handleAddToCart(Item._id); // Pass product ID to handleAddToCart
+              e.stopPropagation();
+              handleAddToCart(Item._id); 
             }}
           >
             <IoCartOutline size={24} />
