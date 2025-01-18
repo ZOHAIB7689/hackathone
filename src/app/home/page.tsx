@@ -1,9 +1,9 @@
-import FeaturedProductComponent from '@/components/FeaturedProductComponent'
-import ChairGallery from '@/components/GalleryComponent'
-import LastHome from '@/components/LastHomeComponent'
-import Logos from '@/components/logos'
-import FurnitureCollection from '@/components/section1'
-import TopCategories from '@/components/TopCategoryComponent'
+import FeaturedProductComponent from '@/src/components/FeaturedProductComponent'
+import ChairGallery from '@/src/components/GalleryComponent'
+import LastHome from '@/src/components/LastHomeComponent'
+import Logos from '@/src/components/logos'
+import FurnitureCollection from '@/src/components/section1'
+import TopCategories from '@/src/components/TopCategoryComponent'
 import React from 'react'
 
 export default function Home() {

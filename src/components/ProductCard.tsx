@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Image as newimage } from "sanity"; // Ensure this import is correct and matches the type used in Products interface
-import { urlFor } from "../sanity/lib/image";
+import { urlFor } from "@/sanity/lib/image";
 import { FC } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import Image from "next/image";
@@ -14,7 +14,6 @@ export interface Products {
   description: string;
   image: newimage;
   price: number;
-  slug: string; // Add slug property to the Product type
   category: {
     title: string;
   };
@@ -33,10 +32,8 @@ export const handleAddToCart = async (productId: string) => {
 const ProductCard: FC<{ Item: Products }> = ({ Item }) => {
   const router = useRouter(); // Initialize router
 
-  const handleNavigation = () => {
-    router.push(`/product/${Item.slug}`); // Navigate to the product's slug page
-  };
 
+   const  handleNavigation = ()=>{router.push("/#")}
   return (
     <div onClick={handleNavigation} className="cursor-pointer">
       <div className="border rounded-lg p-2 hover:bg-zinc-50 duration-200 hover:-translate-y-2">
