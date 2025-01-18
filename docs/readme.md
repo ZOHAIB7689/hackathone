@@ -59,21 +59,13 @@ Comforty aims to deliver a user-friendly, visually appealing, and scalable shopp
 | `id`             | String         | Unique identifier for the chair.              |
 | `name`           | String         | Name of the chair.                            |
 | `price`          | Number         | Current selling price.                        |
-| `stock`          | Number         | Quantity available in stock.                  |
 | `description`    | String         | Detailed description of the chair.            |
-| `images`         | Array[String]  | List of image URLs for the chair.             |
+| `image`         | Array[String]  | List of image URLs for the chair.             |
 | `category`       | Reference      | Associated category of the chair.             |
 | `createdAt`      | Date           | Chair creation date.                          |
-| `slug`           | String         | URL-friendly identifier for the chair.        |
-| `rating`         | Number         | Average customer rating.                      |
-| `originalPrice`  | Number         | Original price before any discounts.          |
-| `colors`         | Array[String]  | Available colors for the chair.               |
-| `materials`      | Array[String]  | Materials used in the chair.                  |
-| `tags`           | Array[String]  | Searchable tags associated with the chair.    |
 | `isFeatured`     | Boolean        | Flag indicating if the chair is a featured product. |
-| `isBestSeller`   | Boolean        | Flag indicating if the chair is a best-seller. |
-| `specifications` | Object         | Detailed specifications about the chair.      |
-| `faqs`           | Array[Object]  | Frequently asked questions about the chair.   |
+| `isBestSeller`   | Boolean        | Flag indicating if the chair is a best-seller. 
+
 
 ### **Customer**
 | Field         | Type       | Description                     |
@@ -142,7 +134,6 @@ Comforty aims to deliver a user-friendly, visually appealing, and scalable shopp
 | `/api/shipengine/track-shipment` | GET | Tracks the shipment status. |
 | `/api/track-orders` | GET | Allows customers to view their orders. |
 | `/api/send/confirmation-email` | POST | Sends a confirmation email for an order. |
-| `/api/reviews/[productId]` | POST | Submits a review for a chair. |
 | `/api/reviews/[productId]` | GET | Fetches reviews for a specific chair. |
 
 ---
