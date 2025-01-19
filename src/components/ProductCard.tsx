@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"; // Import useRouter for navigation
 export interface Products {
   _id: string;
   title: string;
-  description: string;
+  description?: string;
   image: newimage;
   price: number;
   category: {

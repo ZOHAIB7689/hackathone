@@ -19,6 +19,15 @@ export const categorySchema = defineType({
       title: "Number of Products",
       name: "products",
       type: "number",
-    },
+    },{
+      name:"slug",
+      type:"slug",
+      title:"Slug",
+      description:"",
+      options:{
+        source:'title',
+        maxLength:96
+      }
+    }
   ],
 });
