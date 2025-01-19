@@ -1,108 +1,153 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
-export default function Cart() {
-  
 
+interface Product {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+}
 
-  const cartItems = [
-    {
-      id: 1,
-      name: "Library Stool Chair",
-      description: "Ashen Slate/Cobalt Bliss",
-      size: "L",
-      quantity: 1,
-      price: 99,
-      image: "/chair3.png", // First image
-    },
-    {
-      id: 2,
-      name: "Library Stool Chair",
-      description: "Ashen Slate/Cobalt Bliss",
-      size: "l",
-      quantity: 1,
-      price: 99,
-      image: "/sec.png.png", // Second image
-    },
-  ];
+interface CartItem {
+  id: number;
+  product_id: string;
+  quantity: number;
+  product: Product;
+}
+
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch cart items from the backend
+  const fetchCartItems = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/cart", { method: "GET" });
+      const data = await res.json();
+      console.log("Fetched cart items:", data); // Log the response for debugging
+      setCartItems(data.cart || []);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete an item from the cart
+  const deleteCartItem = async (productId: string) => {
+    try {
+      const res = await fetch("/api/cart", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_id: productId }),
+      });
+      if (res.ok) {
+        setCartItems((prev) =>
+          prev.filter((item) => item.product_id !== productId)
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting cart item:", error);
+    }
+  };
+
+  // Update the quantity of an item
+  const updateQuantity = async (productId: string, increment: boolean) => {
+    try {
+      const item = cartItems.find((i) => i.product_id === productId);
+      if (!item) return;
+
+      const updatedQuantity = increment ? item.quantity + 1 : item.quantity - 1;
+      if (updatedQuantity < 1) return;
+
+      const res = await fetch("/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product_id: productId,
+          quantity: updatedQuantity,
+        }),
+      });
+
+      if (res.ok) {
+        setCartItems((prev) =>
+          prev.map((i) =>
+            i.product_id === productId ? { ...i, quantity: updatedQuantity } : i
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
+
+  if (loading) {
+    return <div>Loading cart...</div>;
+  }
+
+  if (cartItems.length === 0) {
+    return <div>Your cart is empty!</div>;
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100 md:pl-56 md:pr-36 py-8">
-      <div className="container mx-auto px-4">
-        <h1 className="text-2xl font-semibold mb-6">Bag</h1>
-
-        {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Bag Section */}
-          <div className="col-span-2 space-y-4">
-            {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col md:flex-row items-center bg-white p-4 rounded-lg shadow-md"
-              >
-                {/* Product Image */}
-                <div className="w-32 h-32 flex-shrink-0">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover rounded-md"
-                  />
-                </div>
-
-                {/* Product Info */}
-                <div className="flex-grow md:ml-4">
-                  <h2 className="text-lg font-semibold">{item.name}</h2>
-                  <p className="text-sm text-gray-500">{item.description}</p>
-
-                  {/* Size and Quantity in One Line */}
-                  <div className="text-sm text-gray-500 flex space-x-4 mt-1">
-                    <p>Size: {item.size}</p>
-                    <p>Quantity: {item.quantity}</p>
-                  </div>
-                
-
-                  {/* Wishlist and Delete Below */}
-                  <div className="flex space-x-4 mt-2">
-                    <button className="text-gray-500 hover:text-teal-500">
-                    <FaRegHeart />
-                    </button>
-                    <button className="text-gray-500 hover:text-red-500">
-                    <RiDeleteBin5Line />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Product Price */}
-                <div className="flex flex-col items-end">
-                  <p className="text-lg font-semibold">MRP: ${item.price}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Summary Section */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Summary</h2>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <p className="text-gray-500">Subtotal</p>
-                <p className="font-semibold">$198.00</p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-gray-500">Estimated Delivery & Handling</p>
-                <p className="font-semibold">Free</p>
-              </div>
-              <div className="border-t border-gray-300 my-4"></div>
-              <div className="flex justify-between text-lg font-semibold">
-                <p>Total</p>
-                <p>$198.00</p>
-              </div>
+    <div className="cart-container">
+      <h1 className="cart-title">Your Cart</h1>
+      <div className="cart-items">
+        {cartItems.map((item) => (
+          <div key={item.id} className="cart-item">
+            <div className="cart-image">
+              <img src={item.product.imageUrl} alt={item.product.title} />
             </div>
-            <button className="w-full mt-4 bg-teal-500 text-white py-3 rounded-lg font-semibold hover:bg-teal-600 transition">
-              Member Checkout
-            </button>
+            <div className="cart-details">
+              <h2>{item.product.title}</h2>
+              <p>{item.product.description}</p>
+              <p>Price: ${item.product.price}</p>
+              <div className="cart-quantity">
+                <button onClick={() => updateQuantity(item.product_id, false)}>
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button onClick={() => updateQuantity(item.product_id, true)}>
+                  +
+                </button>
+              </div>
+              <p>Total: ${item.product.price * item.quantity}</p>
+            </div>
+            <div className="cart-actions">
+              <button onClick={() => deleteCartItem(item.product_id)}>
+                <RiDeleteBin5Line /> Remove
+              </button>
+              <button>
+                <FaRegHeart /> Save for later
+              </button>
+            </div>
           </div>
-        </div>
+        ))}
+      </div>
+      <div className="cart-summary">
+        <h2>Cart Summary</h2>
+        <p>
+          Total Items: {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+        </p>
+        <p>
+          Total Price: $
+          {cartItems.reduce(
+            (sum, item) => sum + item.product.price * item.quantity,
+            0
+          )}
+        </p>
       </div>
     </div>
   );
-}
+};
+
+export default CartPage;
