@@ -12,7 +12,7 @@ interface Product {
 
 // Fetch Product Data
 export const getProductData = async (): Promise<Product[]> => {
-  const response = await client.fetch(`*[_type=='product']{
+  const response = await client.fetch(`*[_type=='products']{
     _id,
     image,
     slug,
@@ -52,7 +52,7 @@ const ChairGallery = async () => {
         <div className="md:w-1/2 mr-2 flex justify-center items-center mb-8 md:mb-0">
           <div className="overflow-hidden bg-black rounded-lg w-full max-w-md">
             <Image
-              src={urlFor(data.slice(1, 5)[0].image)}
+              src={urlFor(data.slice(4, 5)[0].image)}
               alt="Main Product"
               width={400}
               height={400}

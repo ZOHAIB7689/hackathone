@@ -22,7 +22,7 @@ const FurnitureCollection = () => {
         <img
           src="/hero.png"
           alt="Furniture Collection"
-          className="w-full  rounded-lg shadow-md object-center"
+          className="w-full  rounded-lg object-center"
         />
       </div>
     </div>
