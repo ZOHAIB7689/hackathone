@@ -1,4 +1,4 @@
-import FeaturedProductComponent from '@/src/components/FeaturedProductComponent'
+import FeaturedProductComponent from '@/src/components/FeaturedProductComponent copy'
 import ChairGallery from '@/src/components/GalleryComponent'
 import LastHome from '@/src/components/LastHomeComponent'
 import Logos from '@/src/components/logos'
