@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import CardSkeleton from "./Skeleton";
-import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";  // Import your ProductCard component
-import {client} from "@/sanity/lib/client"
+import React, { useEffect, useState, useRef } from "react";
+import ProductCard from "./ProductCard"; // Import your ProductCard component
+import { client } from "@/sanity/lib/client";
 import { Image } from "sanity";
 
 // Fetch product data from the Sanity API
@@ -33,30 +33,62 @@ interface Product {
 
 // FeaturedProductComponent to render the list of featured products
 const FeaturedProductComponent: React.FC = () => {
-  // Local state to store the fetched products
   const [data, setData] = useState<Product[] | null>(null);
-  const [isLoading, setIsLoading] = useState <boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Fetch the product data when the component mounts
+  // Ref for the scrollable container
+  const scrollContainer = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  // Drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (scrollContainer.current) {
+      setIsDragging(true);
+      setStartX(e.pageX - scrollContainer.current.offsetLeft);
+      setScrollLeft(scrollContainer.current.scrollLeft);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainer.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainer.current.offsetLeft;
+    const walk = (x - startX) * 2; // Adjust scroll speed
+    scrollContainer.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    setIsDragging(false);
+  };
+
+  // Fetch product data
   useEffect(() => {
     const fetchData = async () => {
-       try {
-              const products = await getProductData();
-              setData(products);
-            } catch (error) {
-              console.error("Error fetching product data:", error);
-            } finally {
-              setIsLoading(false); // Set loading to false after data is fetched
-            }
+      try {
+        const products = await getProductData();
+        setData(products);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, []);
 
-
   return (
     <div className="mt-8">
-      
-      <div className="flex justify-between flex-col touch-pan-x md:flex-row scrollbar-hide max-w-full  gap-6 overflow-auto mt-5">
+      <div
+        ref={scrollContainer}
+        className="flex justify-between touch-pan-x md:flex-row scrollbar-hide max-w-full gap-6 overflow-auto mt-5 cursor-grab active:cursor-grabbing"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUpOrLeave}
+        onMouseLeave={handleMouseUpOrLeave}
+        style={{ userSelect: "none" }} // Prevent text/image selection
+      >
         {isLoading ? (
           Array.from({ length: 4 }).map((_, index) => (
             <CardSkeleton key={index} />
@@ -66,7 +98,7 @@ const FeaturedProductComponent: React.FC = () => {
             <ProductCard Item={product} key={product._id} /> // Pass product data to ProductCard
           ))
         ) : (
-          <p>No featured products available.</p> // If no products are found
+          <p>No featured products available.</p>
         )}
       </div>
     </div>
