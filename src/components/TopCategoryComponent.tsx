@@ -23,7 +23,15 @@ export const getCategories = async () => {
 };
 
 const TopCategories = () => {
-  const [categories, setCategories] = useState<Array<any>>([]);
+  interface Category {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    products: number;
+    image: { asset: { url: string } };
+  }
+
+  const [categories, setCategories] = useState<Array<Category>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {

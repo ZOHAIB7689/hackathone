@@ -61,6 +61,7 @@ const CartPage = () => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       const parsedCart = JSON.parse(savedCart);
+      // @ts-ignore
       parsedCart.forEach((item: any) => {
         dispatch(addItem(item)); // Restore cart items from localStorage
       });
