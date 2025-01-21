@@ -6,24 +6,30 @@ import { client } from "@/sanity/lib/client";
 import { Image } from "sanity";
 import CardSkeleton from "@/src/components/Skeleton";
 
-const getProductData = async () => {
+// Fetch product data with the image URL
+export const getProductData = async () => {
   const response = await client.fetch(`*[_type == 'products']{
-       _id,
-       title,
-       description,
-       image,
-       price,
-       category ->{title} }`);
+    _id,
+    title,
+    description,
+    image{
+      asset->{
+        url
+      }
+    },
+    price,
+    category->{title}
+  }`);
   return response;
 };
 
+// Define the interface for a product
 interface Product {
   _id: string;
   title: string;
   description: string;
-  image: Image;
+  image: { asset: { url: string } }; // Update to reflect image structure
   price: number;
-  discount: number;
   category: {
     title: string;
   };
@@ -50,7 +56,7 @@ const ProductComponent: React.FC = () => {
 
   return (
     <div className="mt-8 px-4 sm:px-8 md:px-16 lg:pl- xl:px-56">
-      <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5">
         {isLoading ? (
           // Render skeleton while loading
           Array.from({ length: 6 }).map((_, index) => (

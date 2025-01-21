@@ -1,20 +1,25 @@
 "use client";
 
-import CardSkeleton from "./Skeleton";
 import React, { useEffect, useState, useRef } from "react";
 import ProductCard from "./ProductCard"; // Import your ProductCard component
 import { client } from "@/sanity/lib/client";
-import { Image } from "sanity";
+import { Products } from "./ProductCard";
+import CardSkeleton from "./Skeleton";
 
 // Fetch product data from the Sanity API
-export const getProductData = async () => {
+const getProductData = async () => {
   const response = await client.fetch(`*[_type == 'products']{
-       _id,
-       title,
-       description,
-       image,
-       price,
-       category ->{title} }`);
+          _id,
+          title,
+          description,
+          image{
+            asset->{
+              url
+            }
+          },
+          price,
+          category->{title}
+        }`);
   return response;
 };
 
@@ -23,9 +28,8 @@ interface Product {
   _id: string;
   title: string;
   description: string;
-  image: Image;
-  price: number;
-  discount: number;
+  imageUrl: string; 
+    price: number;
   category: {
     title: string;
   };
@@ -33,7 +37,7 @@ interface Product {
 
 // FeaturedProductComponent to render the list of featured products
 const FeaturedProductComponent: React.FC = () => {
-  const [data, setData] = useState<Product[] | null>(null);
+  const [data, setData] = useState<Products[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Ref for the scrollable container
@@ -90,10 +94,12 @@ const FeaturedProductComponent: React.FC = () => {
         style={{ userSelect: "none" }} // Prevent text/image selection
       >
         {isLoading ? (
+          // Render skeleton while loading
           Array.from({ length: 4 }).map((_, index) => (
             <CardSkeleton key={index} />
           ))
         ) : data && data.length > 0 ? (
+          // Render product cards when data is available
           data.map((product) => (
             <ProductCard Item={product} key={product._id} /> // Pass product data to ProductCard
           ))

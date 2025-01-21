@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
@@ -6,23 +6,30 @@ import { client } from "@/sanity/lib/client";
 import { Image } from "sanity";
 import CardSkeleton from "./Skeleton"; // Import CardSkeleton component
 
+// Fetch product data from Sanity with the asset URL
 export const getProductData = async () => {
-  const response = await client.fetch(`*[_type=='products' ]{
+  const response = await client.fetch(`*[_type=='products']{
     _id,
     title,
     description,
-    image,
+    image{
+      asset->{
+        url
+      }
+    },
     discount, 
     price,
-    category -> {title} }`);
+    category->{title}
+  }`);
   return response;
 };
 
+// Define the Product interface
 interface Product {
   _id: string;
   title: string;
   description: string;
-  image: Image;
+  image: { asset: { url: string } }; // Adjusting image to store asset URL
   price: number;
   discount: number;
   category: {
@@ -56,7 +63,7 @@ export default function LastHome() {
       <div className="flex justify-between md:flex-row-reverse flex-col-reverse flex-wrap mt-5">
         {isLoading
           ? // Render skeleton loader while data is being fetched
-            Array.from({ length: 8 }).map((_, index) => (
+            Array.from({ length: 6 }).map((_, index) => (
               <CardSkeleton key={index} />
             ))
           : // Render product cards when data is available

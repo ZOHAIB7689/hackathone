@@ -1,36 +1,46 @@
-"use client";
-
+import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "@/src/features/cart/cartSlice";
-import React from "react";
-import { Image as newimage } from "sanity"; // Ensure this matches your Sanity setup
-import { urlFor } from "@/sanity/lib/image";
-import { FC } from "react";
 import { IoCartOutline } from "react-icons/io5";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+// Interface for the product data
 export interface Products {
   _id: string;
   title: string;
   description?: string;
-  image: newimage;
+  image: {
+    asset: {
+      url: string;
+    };
+  };
   price: number;
   category: {
     title: string;
   };
 }
 
-const ProductCard: FC<{ Item: Products }> = ({ Item }) => {
-  const dispatch = useDispatch(); // Correctly use dispatch inside the component
-  const router = useRouter(); // Initialize router
+const ProductCard: React.FC<{ Item: Products }> = ({ Item }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
 
+  // Handle add to cart action
   const handleAddToCart = (product: Products) => {
-    dispatch(addItem({ ...product, quantity: 1 })); // Dispatch the addItem action
+    const cartItem = {
+      ...product,
+      image: {
+        asset: {
+          url: product.image.asset.url, // Map the product's image URL to the cart item
+        },
+      },
+      quantity: 1,
+    };
+    dispatch(addItem(cartItem));
   };
 
+  // Handle product navigation to details page
   const handleNavigation = () => {
-    router.push("/#"); // Replace with the correct route for product details
+    router.push(`/product/${Item._id}`);
   };
 
   return (
@@ -38,12 +48,12 @@ const ProductCard: FC<{ Item: Products }> = ({ Item }) => {
       <div className="border rounded-lg p-2 hover:bg-zinc-50 duration-200 hover:-translate-y-2">
         <div className="w-full h-3/4 overflow-hidden">
           <div className="bg-black w-[200px] rounded-md">
-            <Image
-              src={urlFor(Item.image).url()}
+            {/* Replace Image component with img tag for testing */}
+            <img
+              src={Item.image.asset.url} // Direct image URL from Sanity
               alt={Item.title}
-              height={200}
-              width={200}
               className="hover:scale-110 hover:opacity-70 duration-200"
+              style={{ width: 200, height: 200 }}
             />
           </div>
         </div>
@@ -52,8 +62,8 @@ const ProductCard: FC<{ Item: Products }> = ({ Item }) => {
           <button
             className="mr-2 p-2 rounded-lg duration-200 hover:bg-[#029FAE] font-bold"
             onClick={(e) => {
-              e.stopPropagation(); // Prevent navigation on button click
-              handleAddToCart(Item); // Call the function correctly
+              e.stopPropagation();
+              handleAddToCart(Item);
             }}
           >
             <IoCartOutline size={24} />
