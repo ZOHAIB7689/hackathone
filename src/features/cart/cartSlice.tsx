@@ -2,18 +2,22 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Image as newimage } from "sanity";
 
 
-interface CartItem {
-  _id: string; // Match the Products type
-  title: string; // Match the Products type
+
+export interface CartItem {
+  _id: string;
+  title: string;
   description?: string;
-  image: newimage;
+  image: {
+    asset: {
+      url: string; // Use the same structure as `Product`
+    };
+  };
   price: number;
   category: {
     title: string;
   };
   quantity: number;
-}
-interface CartState {
+}interface CartState {
   items: CartItem[];
 }
 
