@@ -1,5 +1,7 @@
-import React from "react";
-import {client} from "@/sanity/lib/client"
+"use client"
+
+import React, { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { Image as newImage } from "sanity";
 import Image from "next/image";
@@ -10,18 +12,6 @@ interface Product {
   image: newImage;
 }
 
-// Fetch Product Data
-export const getProductData = async (): Promise<Product[]> => {
-  const response = await client.fetch(`*[_type=='products']{
-    _id,
-    image,
-    slug,
-  }`);
-
-  // Ensure we return an empty array if the response is undefined or null
-  return response || [];
-};
-
 // Image URL Builder
 const builder = imageUrlBuilder(client);
 
@@ -30,11 +20,30 @@ function urlFor(source: newImage): string {
   return builder.image(source).url() || "";
 }
 
-const ChairGallery = async () => {
-  // Fetch product data and ensure proper typing and error handling
-  const data: Product[] = await getProductData();
+const ChairGallery = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (data.length === 0) {
+  useEffect(() => {
+    // Fetch product data
+    const fetchProductData = async () => {
+      const response: Product[] = await client.fetch(`*[_type=='products']{
+        _id,
+        image,
+        slug,
+      }`);
+      setProducts(response || []);
+      setIsLoading(false);
+    };
+
+    fetchProductData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (products.length === 0) {
     return <div>No products found.</div>;
   }
 
@@ -52,7 +61,7 @@ const ChairGallery = async () => {
         <div className="md:w-1/2 mr-2 flex justify-center items-center mb-8 md:mb-0">
           <div className="overflow-hidden bg-black rounded-lg w-full max-w-md">
             <Image
-              src={urlFor(data.slice(4, 5)[0].image)}
+              src={urlFor(products[4]?.image)}
               alt="Main Product"
               width={400}
               height={400}
@@ -64,7 +73,7 @@ const ChairGallery = async () => {
 
         {/* Right Section - Gallery of Other Products */}
         <div className="md:w-1/2 grid grid-cols-2 gap-4 w-full">
-          {data.slice(3, 7).map((product, index) => (
+          {products.slice(3, 7).map((product, index) => (
             <div
               key={product._id}
               className="overflow-hidden hover:bg-black rounded-lg"
