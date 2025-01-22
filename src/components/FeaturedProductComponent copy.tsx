@@ -23,18 +23,6 @@ const getProductData = async () => {
   return response;
 };
 
-// Define the interface for a product
-interface Product {
-  _id: string;
-  title: string;
-  description: string;
-  imageUrl: string; 
-    price: number;
-  category: {
-    title: string;
-  };
-}
-
 // FeaturedProductComponent to render the list of featured products
 const FeaturedProductComponent: React.FC = () => {
   const [data, setData] = useState<Products[] | null>(null);
