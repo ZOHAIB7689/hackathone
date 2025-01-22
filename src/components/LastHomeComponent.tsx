@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { client } from "@/sanity/lib/client";
-import { Image } from "sanity";
 import CardSkeleton from "./Skeleton"; // Import CardSkeleton component
 
 // Fetch product data from Sanity with the asset URL
