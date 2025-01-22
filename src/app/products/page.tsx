@@ -6,7 +6,7 @@ import { client } from "@/sanity/lib/client";
 import CardSkeleton from "@/src/components/Skeleton";
 
 // Fetch product data with the image URL
-export const getProductData = async () => {
+ const getProductData = async () => {
   const response = await client.fetch(`*[_type == 'products']{
     _id,
     title,
