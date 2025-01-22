@@ -1,14 +1,8 @@
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import FeaturedProductComponent from "@/src/components/FeaturedProductComponent copy";
 
 export default function Home() {
-  const demoImages = [
-    "/chair.png",
-    "/chair2.png",
-    "/chair3.png",
-    "/chair4.png",
-    "/card.png",
-  ];
 
   return (
     <div className="min-h-screen md:pl-56 md:pr-36 bg-gray-50 py-10 px-6">
@@ -51,26 +45,9 @@ export default function Home() {
           </a>
         </div>
 
+
         {/* Featured Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-6">
-          {demoImages.map((image, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition"
-            >
-              <img
-                src={image}
-                alt={`Demo Image ${index + 1}`}
-                className="rounded-lg w-full h-48 object-cover mb-4" // Adjusted image size
-              />
-              <h3 className="text-[#343A40] font-semibold text-sm mb-2">
-                Demo Product {index + 1}
-              </h3>
-              <p className="text-[#6C757D] font-bold">$99</p>
-            </div>
-          ))}
-        </div>
-      </div>
+       <FeaturedProductComponent/> </div>
     </div>
   );
 }
