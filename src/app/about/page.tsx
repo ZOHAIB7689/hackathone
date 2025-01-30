@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaShippingFast, FaTags } from "react-icons/fa";
 import { CiCircleCheck } from "react-icons/ci";
 import { TbPlant } from "react-icons/tb";
@@ -23,10 +24,12 @@ export default function Home() {
         </div>
         {/* Image Box */}
         <div className="w-96 h-64 bg-white rounded-lg shadow-lg flex items-center justify-center">
-          <img
+          <Image
             src="/chair.png" // Replace with your image path
             alt="Chair"
-            className="w-48 h-48 object-contain"
+            className=" object-contain"
+            width={192}
+            height={192}
           />
         </div>
       </section>
