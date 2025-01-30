@@ -48,20 +48,28 @@ const TopCategories = () => {
 
     fetchCategories();
   }, []);
-
+if (isLoading) {
   return (
     <div className="px-4 py-6">
       <h2 className="text-lg font-semibold text-gray-900 mb-4">
         Top Categories
       </h2>
 
-      {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <CardSkeleton key={index} />
-          ))}
-        </div>
-      ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <CardSkeleton key={index} />
+        ))}
+      </div>
+    </div>
+  )
+}
+ else{ return (
+    <div className="px-4 py-6">
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        Top Categories
+      </h2>
+
+      {(
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {categories.length > 0 ? (
             categories.map((category) => (
@@ -72,13 +80,13 @@ const TopCategories = () => {
                 {/* Wrap the card in a Link component */}
                 <Card className="overflow-hidden cursor-pointer hover:shadow-md">
                   <CardHeader className="p-0">
-                    <div className="bg-black w-[300px]">
+                    <div className="bg-black overflow-hidden w-[300px]">
                       <Image
                         src={category.image.asset.url}
                         alt={category.title}
                         width={300}
                         height={200}
-                        className="w-full h-auto hover:opacity-70 object-cover"
+                        className="w-full h-auto hover:scale-105 hover:opacity-70 duration-200 overflow-hidden object-cover"
                       />
                     </div>
                   </CardHeader>
@@ -101,5 +109,5 @@ const TopCategories = () => {
     </div>
   );
 };
-
+}
 export default TopCategories;

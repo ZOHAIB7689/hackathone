@@ -6,10 +6,6 @@ import Footer from "@/src/components/FooterComponent";
 import { Providers } from "../lib/providers";
 import {
   ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
 } from "@clerk/nextjs";
 
 const geistSans = localFont({
@@ -39,7 +35,6 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased `}
         >
-          
           <Navbar />
           <Providers>{children}</Providers>
           <Footer />

@@ -56,7 +56,7 @@ function Navbar() {
 
           {/* Mobile: Menu Icon and Authentication */}
           <div className="md:hidden flex items-center space-x-4">
-            <div>
+            <div >
               <SignedOut>
                 <SignInButton />
               </SignedOut>
