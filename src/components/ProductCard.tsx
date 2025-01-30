@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { addItem } from "@/src/features/cart/cartSlice";
 import { IoCartOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // Interface for the product data
 export interface Products {
@@ -51,11 +52,12 @@ const ProductCard: React.FC<{ Item: Products }> = ({ Item }) => {
         <div className="w-full h-3/4 overflow-hidden">
           <div className="bg-black w-[200px] rounded-md">
             {/* Replace Image component with img tag for testing */}
-            <img
+            <Image
               src={Item.image.asset.url} // Direct image URL from Sanity
               alt={Item.title}
               className="hover:scale-110 hover:opacity-70 duration-200"
-              style={{ width: 200, height: 200 }}
+              width={200} 
+              height={200} 
             />
           </div>
         </div>
